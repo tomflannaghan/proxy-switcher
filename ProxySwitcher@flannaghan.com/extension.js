@@ -62,6 +62,7 @@ ProxyMenuButton.prototype = {
         children = Main.panel._rightBox.get_children();
         Main.panel._rightBox.insert_child_at_index(this.actor, 0);
 
+        // putting the popup menu together
         this._manualSwitch = new PopupMenu.PopupSwitchMenuItem(
             PROXY_MANUAL_TEXT, false, {});
         this._autoSwitch = new PopupMenu.PopupSwitchMenuItem(
@@ -78,6 +79,10 @@ ProxyMenuButton.prototype = {
                 this._settings.set_string(
                     PROXY_MODE, this._mode == 'auto' ? 'none' : 'auto');
             }));
+        // Add a menu seperator and link to network settings to bottom of menu
+        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+        this.menu.addSettingsAction(_("Network Settings"), 
+                                    'gnome-network-panel.desktop');
         this.refresh();
     },
     
