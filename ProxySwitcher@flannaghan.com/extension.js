@@ -19,7 +19,7 @@ const ICON_NONE = "preferences-system-network-proxy-symbolic"
 const ICON_MANUAL = ICON_NONE; //"emblem-default-symbolic"
 const ICON_AUTO = ICON_NONE; //"emblem-default-symbolic"
 
-
+//// very helpful example where i got lots of the code
 // https://github.com/simon04/gnome-shell-extension-weather/blob/master/src/extension.js
 function getSettings(schema) {
     if (Gio.Settings.list_schemas().indexOf(schema) == -1)
@@ -44,7 +44,7 @@ ProxyMenuButton.prototype = {
         this._settings.connect('changed::' + PROXY_MODE, load_settings_refresh);
     
         this._icon = new St.Icon({ 
-            icon_name: 'weather-snow',
+            icon_name: ICON_NONE,
             style_class: 'system-status-icon' });
         this._modeInfo = new St.Label({ text: "", width: 16 });
 
