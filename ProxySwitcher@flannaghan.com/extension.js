@@ -93,7 +93,7 @@ ProxyMenuButton.prototype = {
         switch (this._mode) {
         case 'none':
             this._icon.icon_name = ICON_NONE;
-            this._modeInfo.text = "x";
+            this._modeInfo.text = "-";
             break;
         case 'manual':
             this._icon.icon_name = ICON_MANUAL;
