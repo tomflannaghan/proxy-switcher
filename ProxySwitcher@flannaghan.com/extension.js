@@ -9,8 +9,6 @@ const Lang = imports.lang;
 const Mainloop = imports.mainloop;
 const Util = imports.misc.util;
 
-let text, button;
-
 const PROXY_SCHEMA = "org.gnome.system.proxy"
 const PROXY_MODE = "mode"
 const PROXY_MANUAL_TEXT = "Manual"
@@ -33,14 +31,17 @@ ProxyMenuButton.prototype = {
     __proto__: PanelMenu.Button.prototype,
     
     _init: function() {
+        // connect to the gsettings proxy schema
         this._settings = getSettings(PROXY_SCHEMA);
         this._mode = this._settings.get_string(PROXY_MODE);
         let load_settings_refresh = Lang.bind(this, function() {
             this._mode = this._settings.get_string(PROXY_MODE);
             this.refresh();
         });
-        this._settings.connect('changed::' + PROXY_MODE, load_settings_refresh);
-    
+        this._settings_connection_id = 
+            this._settings.connect('changed::' + PROXY_MODE, 
+                                   load_settings_refresh);
+        
         this._icon = new St.Icon({ 
             icon_name: ICON_NONE,
             style_class: 'system-status-icon' });
@@ -119,5 +120,6 @@ function enable() {
 }
 
 function disable() {
+    proxyMenu._settings.disconnect(proxyMenu._settings_connection_id);
     proxyMenu.destroy();
 }
