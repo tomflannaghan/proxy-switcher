@@ -4,6 +4,8 @@ const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
+const Gettext = imports.gettext.domain("ProxySwitcher@flannaghan.com");
+const _ = Gettext.gettext;
 
 const Lang = imports.lang;
 const Mainloop = imports.mainloop;
@@ -11,8 +13,8 @@ const Util = imports.misc.util;
 
 const PROXY_SCHEMA = "org.gnome.system.proxy"
 const PROXY_MODE = "mode"
-const PROXY_MANUAL_TEXT = "Manual"
-const PROXY_AUTO_TEXT = "Automatic"
+const PROXY_MANUAL_TEXT = _("Manual")
+const PROXY_AUTO_TEXT = _("Automatic")
 const ICON_NONE = "preferences-system-network-proxy-symbolic"
 const ICON_MANUAL = ICON_NONE; //"emblem-default-symbolic"
 const ICON_AUTO = ICON_NONE; //"emblem-default-symbolic"
@@ -96,11 +98,11 @@ ProxyMenuButton.prototype = {
             break;
         case 'manual':
             this._icon.icon_name = ICON_MANUAL;
-            this._modeInfo.text = "m";
+            this._modeInfo.text = _("m");
             break;
         case 'auto':
             this._icon.icon_name = ICON_AUTO;
-            this._modeInfo.text = "a";
+            this._modeInfo.text = _("a");
             break;            
         default:
             break;
