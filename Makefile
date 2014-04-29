@@ -1,13 +1,18 @@
 INSTALL_LOC=$(HOME)/.local/share/gnome-shell/extensions
-EXTENSION=ProxySwitcher@flannaghan.com
+UUID=ProxySwitcher@flannaghan.com
+BUILD=build
+BUILD_LOC=$(BUILD)/$(UUID)
+ZIP=$(UUID).zip
 
-all: zip install
-
-zip:
-	rm $(EXTENSION).zip
-	zip -j $(EXTENSION).zip $(EXTENSION)/metadata.json $(EXTENSION)/extension.js
+.PHONY: build
+build: 
+	rm -rf $(BUILD_LOC)
+	mkdir -p $(BUILD_LOC)
+	cp -r src/extension.js src/metadata.json locale $(BUILD_LOC)
+	cd $(BUILD_LOC); zip -r $(ZIP) *
+	mv $(BUILD_LOC)/$(ZIP) $(ZIP)
 
 install:
-	rm -rf $(INSTALL_LOC)/$(EXTENSION)
-	cp -r $(EXTENSION) $(INSTALL_LOC)/.
+	rm -rf $(INSTALL_LOC)/$(UUID)
+	cp -r $(BUILD_LOC) $(INSTALL_LOC)/.
 

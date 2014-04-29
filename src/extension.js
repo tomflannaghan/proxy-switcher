@@ -2,9 +2,11 @@ const St = imports.gi.St;
 const Main = imports.ui.main;
 const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
+const ExtensionSystem = imports.misc;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
-const Gettext = imports.gettext.domain("ProxySwitcher@flannaghan.com");
+const UUID = "ProxySwitcher@flannaghan.com";
+const Gettext = imports.gettext;
 const _ = Gettext.gettext;
 
 const Lang = imports.lang;
@@ -13,8 +15,6 @@ const Util = imports.misc.util;
 
 const PROXY_SCHEMA = "org.gnome.system.proxy"
 const PROXY_MODE = "mode"
-const PROXY_MANUAL_TEXT = _("Manual")
-const PROXY_AUTO_TEXT = _("Automatic")
 const ICON_NONE = "preferences-system-network-proxy-symbolic"
 const ICON_MANUAL = ICON_NONE; //"emblem-default-symbolic"
 const ICON_AUTO = ICON_NONE; //"emblem-default-symbolic"
@@ -65,9 +65,9 @@ ProxyMenuButton.prototype = {
 
         // putting the popup menu together
         this._manualSwitch = new PopupMenu.PopupSwitchMenuItem(
-            PROXY_MANUAL_TEXT, false, {});
+            _("Manual"), false, {});
         this._autoSwitch = new PopupMenu.PopupSwitchMenuItem(
-            PROXY_AUTO_TEXT, false, {});
+            _("Automatic"), false, {});
         this.menu.addMenuItem(this._manualSwitch);
         this.menu.addMenuItem(this._autoSwitch);
         this._manualSwitch.connect(
@@ -113,7 +113,9 @@ ProxyMenuButton.prototype = {
 let proxyMenu;
 
 function init() {
-
+    // initialize the gettext domain. We use the extension locale directory.
+    Gettext.textdomain(UUID);
+    Gettext.bindtextdomain(UUID, imports.misc.extensionUtils.getCurrentExtension().dir.get_child("locale").get_path());
 }
 
 function enable() {
