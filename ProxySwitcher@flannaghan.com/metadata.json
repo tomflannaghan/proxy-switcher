@@ -1,1 +1,6 @@
-{"shell-version": ["3.4", "3.6", "3.8", "3.10"], "uuid": "ProxySwitcher@flannaghan.com", "name": "Proxy Switcher", "description": "Switches between the manual and automatic proxy settings profiles."}
+{"uuid": "ProxySwitcher@flannaghan.com", 
+ "name": "Proxy Switcher", 
+ "description": "Switches between the manual and automatic proxy settings profiles.",
+ "shell-version": ["3.4", "3.6", "3.8", "3.10", "3.12"],
+ "url": "https://github.com/tomflannaghan/proxy-switcher"
+}
