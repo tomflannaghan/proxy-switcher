@@ -14,5 +14,6 @@ I recommend using the gnome extensions site but this is not always up to date. T
     make build
     make install
 
+## Translations
 
-
+I have added the translations I found in the [`gnome-control-center`](https://git.gnome.org/browse/gnome-control-center) project to the extension (these are the translations used in the "Network Settings" menu). I've also used the "Network Settings" desktop shortcut to translate that phrase. To generate the character to display in the status bar, I just take the first letter of each translation for the mode. Obviously I imagine that in some languages this is not sensible. Please email me if there is an error.
