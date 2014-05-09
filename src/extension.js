@@ -35,12 +35,13 @@ const RadioPopupMenuItem = new Lang.Class({
         
         // the two labels used
         this._label = new St.Label({ text: text });
-        this._radio = new St.Label({ text: "●" });
+        this._radio = new St.Label({ text: "\u25CF" });
         
         // assemble everything
-        this.actor.add_child(this._label);
+        this.addActor(this._label);
         this._radioBin = new St.Bin({ x_align: St.Align.END });
-        this.actor.add(this._radioBin, { expand: true, x_align: St.Align.END });
+        this.addActor(this._radioBin,
+                      { expand: true, align: St.Align.END, span: -1 });
         this._radioBin.child = this._radio;
         this.actor.label_actor = this._label
         
