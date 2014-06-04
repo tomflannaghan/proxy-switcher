@@ -1,7 +1,7 @@
 {
     "uuid": "ProxySwitcher@flannaghan.com", 
     "name": "Proxy Switcher", 
-    "description": "A simple extension that switches between the system proxy settings profiles defined in Network Settings.",
-    "shell-version": ["3.4", "3.6", "3.8", "3.10", "3.12"],
+    "description": "Switches between the system proxy settings profiles defined in Network Settings.",
+    "shell-version": ["3.10", "3.12"],
     "url": "https://github.com/tomflannaghan/proxy-switcher"
 }
