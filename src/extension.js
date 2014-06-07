@@ -170,9 +170,6 @@ function init() {
     if (localeDir.query_exists(null)) {
         imports.gettext.bindtextdomain(UUID, localeDir.get_path());
     }
-    else {
-        imports.gettext.bindtextdomain(UUID, Config.LOCALEDIR);
-    }
 }
 
 function enable() {
