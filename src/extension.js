@@ -6,7 +6,7 @@ const ExtensionSystem = imports.misc;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const UUID = "ProxySwitcher@flannaghan.com";
-const Gettext = imports.gettext;
+const Gettext = imports.gettext.domain(UUID);
 const _ = Gettext.gettext;
 
 const Lang = imports.lang;
@@ -162,9 +162,17 @@ ProxyMenuButton.prototype = {
 let proxyMenu;
 
 function init() {
-    // initialize the gettext domain. We use the extension locale directory.
-    Gettext.textdomain(UUID);
-    Gettext.bindtextdomain(UUID, imports.misc.extensionUtils.getCurrentExtension().dir.get_child("locale").get_path());
+    let extension = imports.misc.extensionUtils.getCurrentExtension();
+    
+    // If the locale dir exists (it should always exist if installed
+    // correctly) then set it up as the source for translations.
+    let localeDir = extension.dir.get_child('locale');
+    if (localeDir.query_exists(null)) {
+        imports.gettext.bindtextdomain(UUID, localeDir.get_path());
+    }
+    else {
+        imports.gettext.bindtextdomain(UUID, Config.LOCALEDIR);
+    }
 }
 
 function enable() {
