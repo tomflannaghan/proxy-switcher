@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "Bat ere ez"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "Eskuz"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "Automatikoa"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "Sareko ezarpenak"
 
-#: extension.js:101
-msgid "m"
-msgstr "e"
-
-#: extension.js:105
-msgid "a"
-msgstr "a"
+msgid "Proxy"
+msgstr "Proxy-a"

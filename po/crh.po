@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "Hiçbiri"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "El ile"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "Otomatik"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "Şebeke ayarları"
 
-#: extension.js:101
-msgid "m"
-msgstr "e"
-
-#: extension.js:105
-msgid "a"
-msgstr "o"
+msgid "Proxy"
+msgstr "Proksi"

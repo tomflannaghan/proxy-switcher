@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "يوق"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "قولدا"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "ئاپتوماتىك"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "تور تەڭشەك"
 
-#: extension.js:101
-msgid "m"
-msgstr "ق"
-
-#: extension.js:105
-msgid "a"
-msgstr "ئ"
+msgid "Proxy"
+msgstr "ۋاكالەتچى"

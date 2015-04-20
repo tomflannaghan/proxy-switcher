@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "ഒന്നുമില്ല"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "മാനുവല്‍"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "തനിയെയുള്ള"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "ശൃംഖലയുടെ ക്രമീകരണങ്ങള്‍"
 
-#: extension.js:101
-msgid "m"
-msgstr "മ"
-
-#: extension.js:105
-msgid "a"
-msgstr "ത"
+msgid "Proxy"
+msgstr "പ്രോക്സി"

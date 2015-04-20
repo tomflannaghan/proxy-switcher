@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "Neamhní"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "De láimh"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "Uathoibríoch"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "Socruithe an líonra"
 
-#: extension.js:101
-msgid "m"
-msgstr "d"
-
-#: extension.js:105
-msgid "a"
-msgstr "u"
+msgid "Proxy"
+msgstr "Seachfhreastalaí"

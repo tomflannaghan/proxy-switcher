@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "ಯಾವುದೂ ಇಲ್ಲ"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "ಕೈಯಾರೆ"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "ಸ್ವಯಂಚಾಲಿತ"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "ಜಾಲಬಂಧಧ ಸಿದ್ಧತೆಗಳು"
 
-#: extension.js:101
-msgid "m"
-msgstr "ಕ"
-
-#: extension.js:105
-msgid "a"
-msgstr "ಸ"
+msgid "Proxy"
+msgstr "ಪ್ರಾಕ್ಸಿ"

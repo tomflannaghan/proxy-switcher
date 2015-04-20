@@ -27,6 +27,14 @@ def get_translations(lang):
         else:
             translations[k] = k
 
+    pattern = '\nmsgid "Proxy"\nmsgstr "([^"]*)"\n'
+    mo = re.search(pattern, fdata, flags=re.MULTILINE)
+    if mo is None:
+        print("No translation for Proxy in `{}`".format(lang))
+        translations["Proxy"] = "Proxy"
+    else:
+        translations["Proxy"] = mo.group(1)
+
     if lang in network_settings:
         translations['Network Settings'] = network_settings[lang]
     else:
@@ -34,12 +42,6 @@ def get_translations(lang):
         #translations['Network Settings'] = 'Network Settings'
         return None
     
-    # Now handle "m" and "a"
-    translations['m'] = translations['Manual'][0].lower()
-    translations['a'] = translations['Automatic'][0].lower()
-    if translations['m'] == translations['a']:
-        print("Repeated first letter in `%s`" % lang)
-        return None
     return translations
 
 def make_po_file(lang, template):

@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "ไม่ใช้"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "กำหนดเอง"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "อัตโนมัติ"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "ตั้งค่าเครือข่าย"
 
-#: extension.js:101
-msgid "m"
-msgstr "ก"
-
-#: extension.js:105
-msgid "a"
-msgstr "อ"
+msgid "Proxy"
+msgstr "พร็อกซี"

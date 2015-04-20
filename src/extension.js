@@ -1,23 +1,14 @@
-const St = imports.gi.St;
 const Main = imports.ui.main;
-const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
-const ExtensionSystem = imports.misc;
-const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const UUID = "ProxySwitcher@flannaghan.com";
 const Gettext = imports.gettext.domain(UUID);
 const _ = Gettext.gettext;
 
 const Lang = imports.lang;
-const Mainloop = imports.mainloop;
-const Util = imports.misc.util;
 
 const PROXY_SCHEMA = "org.gnome.system.proxy"
 const PROXY_MODE = "mode"
-const ICON_NONE = "preferences-system-network-proxy-symbolic"
-const ICON_MANUAL = ICON_NONE; //"emblem-default-symbolic"
-const ICON_AUTO = ICON_NONE; //"emblem-default-symbolic"
 
 function getSettings(schema) {
     if (Gio.Settings.list_schemas().indexOf(schema) == -1)
@@ -25,60 +16,51 @@ function getSettings(schema) {
     return new Gio.Settings({ schema: schema });
 }
 
-// A menu item with a radio style bullet point that is right aligned.
-const RadioPopupMenuItem = new Lang.Class({
-    Name: 'RadioPopupMenuItem',
-    Extends: PopupMenu.PopupBaseMenuItem,
 
-    _init: function (text, params) {
-        this.parent(params);
-        
-        // the two labels used
-        this._label = new St.Label({ text: text });
-        this._radio = new St.Label({ text: "●" });
-        
-        // assemble everything
-        this.actor.add_child(this._label);
-        this._radioBin = new St.Bin({ x_align: St.Align.END });
-        this.actor.add(this._radioBin, { expand: true, x_align: St.Align.END });
-        this._radioBin.child = this._radio;
-        this.actor.label_actor = this._label
-        
-        // initial state is false
-        this.setToggleState(false);
-    },
+const ProxySwitcher = new Lang.Class({
+    Name: 'ProxySwitcher',
 
-    activate: function(event) {
-        this.setToggleState(!this._state);
-        this.emit('toggled', this._state);
-        this.parent(event);
-    },
-
-    setToggleState: function(state) {
-        if (state) {
-            this._radio.show();
-            this._state = true;
-        }
-        else {
-            this._radio.hide();
-            this._state = false;
-        }
-    },
-    
-});
-
-
-function ProxyMenuButton() {
-    this._init();
-}
-
-ProxyMenuButton.prototype = {
-    __proto__: PanelMenu.Button.prototype,
-    
     _init: function() {
         // connect to the gsettings proxy schema
         this._settings = getSettings(PROXY_SCHEMA);
-        this._mode = this._settings.get_string(PROXY_MODE);
+        
+        // possible states and their text representation.
+        this._stateText = {'none': _("None"),
+                           'manual': _("Manual"),
+                           'auto': _("Automatic")};
+        this._stateList = ['none', 'manual', 'auto'];
+
+        // make the menu
+        this._switcherMenu = new PopupMenu.PopupSubMenuMenuItem(
+            _("Proxy"), true);
+        this._switcherMenu.icon.icon_name = 
+            "preferences-system-network-proxy-symbolic";
+
+        // add items for each state.
+        for (var i = 0; i < this._stateList.length; i++) {
+            let state = this._stateList[i];
+            let item = new PopupMenu.PopupMenuItem(this._stateText[state]);
+            this._switcherMenu.menu.addMenuItem(item);
+            item.connect("activate", Lang.bind(this, function() {
+                this._settings.set_string(PROXY_MODE, state);
+            }));
+        }
+
+        // Add a link to launch network settings.
+        this._switcherMenu.menu.addSettingsAction(
+            _("Network Settings"), 'gnome-network-panel.desktop');
+
+
+        // Find the right place in the menu to insert our switcher.
+        // If the network menu is defined, insert after this item (the
+        // 4th position), else put it after the 3rd (which is the
+        // first seperator).
+        let network = Main.panel.statusArea.aggregateMenu._network;
+        let index = (network) ? 4 : 3;
+        Main.panel.statusArea.aggregateMenu.menu.addMenuItem(
+            this._switcherMenu, index);
+
+        // Register callback for changes to the settings
         let load_settings_refresh = Lang.bind(this, function() {
             this._mode = this._settings.get_string(PROXY_MODE);
             this.refresh();
@@ -86,80 +68,23 @@ ProxyMenuButton.prototype = {
         this._settings_connection_id = 
             this._settings.connect('changed::' + PROXY_MODE, 
                                    load_settings_refresh);
-        
-        this._icon = new St.Icon({ 
-            icon_name: ICON_NONE,
-            style_class: 'system-status-icon' });
-        this._modeInfo = new St.Label({ text: "", width: 16 });
 
-        // Panel menu item - the current class
-        let menuAlignment = 0.25;
-        PanelMenu.Button.prototype._init.call(this, menuAlignment);
-        
-        // Putting the panel item together
-        let topBox = new St.BoxLayout();
-        topBox.add_actor(this._icon);
-        topBox.add_actor(this._modeInfo);
-        this.actor.add_actor(topBox);
-
-        let children = null;
-        children = Main.panel._rightBox.get_children();
-        Main.panel._rightBox.insert_child_at_index(this.actor, 0);
-
-        // putting the popup menu together
-        this._noneSwitch = new RadioPopupMenuItem(
-            _("None"), {});
-        this._manualSwitch = new RadioPopupMenuItem(
-            _("Manual"), {});
-        this._autoSwitch = new RadioPopupMenuItem(
-            _("Automatic"), {});
-        this.menu.addMenuItem(this._noneSwitch);
-        this.menu.addMenuItem(this._manualSwitch);
-        this.menu.addMenuItem(this._autoSwitch);
-        this._noneSwitch.connect(
-            'toggled', Lang.bind(this, function() {
-                this._settings.set_string(PROXY_MODE, 'none');
-            }));
-        this._manualSwitch.connect(
-            'toggled', Lang.bind(this, function() {
-                this._settings.set_string(PROXY_MODE, 'manual');
-            }));
-        this._autoSwitch.connect(
-            'toggled', Lang.bind(this, function() {
-                this._settings.set_string(PROXY_MODE, 'auto');
-            }));
-        // Add a menu seperator and link to network settings to bottom of menu
-        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-        this.menu.addSettingsAction(_("Network Settings"), 
-                                    'gnome-network-panel.desktop');
-        this.refresh();
+        load_settings_refresh();
     },
-    
-    refresh: function() {
-        // run every time settings have changed.
-        this._noneSwitch.setToggleState(this._mode == 'none');
-        this._manualSwitch.setToggleState(this._mode == 'manual');
-        this._autoSwitch.setToggleState(this._mode == 'auto');
-        switch (this._mode) {
-        case 'none':
-            this._icon.icon_name = ICON_NONE;
-            this._modeInfo.text = "-";
-            break;
-        case 'manual':
-            this._icon.icon_name = ICON_MANUAL;
-            this._modeInfo.text = _("m");
-            break;
-        case 'auto':
-            this._icon.icon_name = ICON_AUTO;
-            this._modeInfo.text = _("a");
-            break;            
-        default:
-            break;
-        }
-    }
-};
 
-let proxyMenu;
+    refresh: function() {
+        // run every time settings have changed. Keeps the menu status in sync.
+        this._switcherMenu.status.text = this._stateText[this._mode];
+    },
+
+    destroy: function() {
+        this._settings.disconnect(this._settings_connection_id);
+    }
+
+});
+
+
+let proxySwitcher;
 
 function init() {
     let extension = imports.misc.extensionUtils.getCurrentExtension();
@@ -173,11 +98,9 @@ function init() {
 }
 
 function enable() {
-    proxyMenu = new ProxyMenuButton();
-    Main.panel.addToStatusArea('proxyMenu', proxyMenu);
+    proxySwitcher = new ProxySwitcher();
 }
 
 function disable() {
-    proxyMenu._settings.disconnect(proxyMenu._settings_connection_id);
-    proxyMenu.destroy();
+    proxySwitcher.destroy();
 }

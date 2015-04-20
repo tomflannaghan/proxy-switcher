@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "Κανένα"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "Χειροκίνητο"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "Αυτόματο"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "Ρυθμίσεις δικτύου"
 
-#: extension.js:101
-msgid "m"
-msgstr "χ"
-
-#: extension.js:105
-msgid "a"
-msgstr "α"
+msgid "Proxy"
+msgstr "Διαμεσολαβητής"

@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "Geen"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "Handmatig"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "Outomaties"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "Netwerkinstellings"
 
-#: extension.js:101
-msgid "m"
-msgstr "h"
-
-#: extension.js:105
-msgid "a"
-msgstr "o"
+msgid "Proxy"
+msgstr "Instaanbediener"

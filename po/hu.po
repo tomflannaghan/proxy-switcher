@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "Nincs"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "Kézi"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "Automatikus"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "Hálózati beállítások"
 
-#: extension.js:101
-msgid "m"
-msgstr "k"
-
-#: extension.js:105
-msgid "a"
-msgstr "a"
+msgid "Proxy"
+msgstr "Proxy"

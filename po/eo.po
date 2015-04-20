@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "Neniu"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "Permane"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "Aŭtomate"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "Retagordoj"
 
-#: extension.js:101
-msgid "m"
-msgstr "p"
-
-#: extension.js:105
-msgid "a"
-msgstr "a"
+msgid "Proxy"
+msgstr "Prokurilo"

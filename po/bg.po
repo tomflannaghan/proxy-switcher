@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "без"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "ръчна настройка"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "автоматично разпознаване"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "Мрежови настройки"
 
-#: extension.js:101
-msgid "m"
-msgstr "р"
-
-#: extension.js:105
-msgid "a"
-msgstr "а"
+msgid "Proxy"
+msgstr "Сървър-посредник"

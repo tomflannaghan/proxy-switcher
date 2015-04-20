@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "ללא"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "ידני"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "אוטומטית"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "הגדרות רשת"
 
-#: extension.js:101
-msgid "m"
-msgstr "י"
-
-#: extension.js:105
-msgid "a"
-msgstr "א"
+msgid "Proxy"
+msgstr "מתווך"

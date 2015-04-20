@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "Žádná"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "Ručně"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "Automaticky"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "Nastavení sítě"
 
-#: extension.js:101
-msgid "m"
-msgstr "r"
-
-#: extension.js:105
-msgid "a"
-msgstr "a"
+msgid "Proxy"
+msgstr "Proxy"

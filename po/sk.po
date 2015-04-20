@@ -17,16 +17,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "None"
-msgstr "Brez"
+msgstr "Bez proxy"
 
 msgid "Manual"
-msgstr "Ročno"
+msgstr "Zadať ručne"
 
 msgid "Automatic"
-msgstr "Samodejno"
+msgstr "Zistiť automaticky"
 
 msgid "Network Settings"
-msgstr "Omrežne nastavitve"
+msgstr "Sieťové nastavenia"
 
 msgid "Proxy"
-msgstr "Posredniški strežnik"
+msgstr "Proxy"

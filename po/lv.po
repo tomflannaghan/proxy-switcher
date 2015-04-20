@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "Nekāda"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "Pašrocīgi"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "Automātiski"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "Tīkla iestatījumi"
 
-#: extension.js:101
-msgid "m"
-msgstr "p"
-
-#: extension.js:105
-msgid "a"
-msgstr "a"
+msgid "Proxy"
+msgstr "Starpnieks"

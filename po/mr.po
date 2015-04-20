@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "काहिच नाही"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "मॅन्युअल"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "स्वयं"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "नेटवर्क सेटिंग्स्"
 
-#: extension.js:101
-msgid "m"
-msgstr "म"
-
-#: extension.js:105
-msgid "a"
-msgstr "स"
+msgid "Proxy"
+msgstr "प्रॉक्सी"

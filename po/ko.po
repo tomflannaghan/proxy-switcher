@@ -19,22 +19,14 @@ msgstr ""
 msgid "None"
 msgstr "없음"
 
-#: extension.js:16
 msgid "Manual"
 msgstr "수동"
 
-#: extension.js:17
 msgid "Automatic"
 msgstr "자동"
 
-#: extension.js:85
 msgid "Network Settings"
 msgstr "네트워크 설정"
 
-#: extension.js:101
-msgid "m"
-msgstr "수"
-
-#: extension.js:105
-msgid "a"
-msgstr "자"
+msgid "Proxy"
+msgstr "FTP 프록시"
