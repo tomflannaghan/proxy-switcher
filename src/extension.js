@@ -79,6 +79,7 @@ const ProxySwitcher = new Lang.Class({
 
     destroy: function() {
         this._settings.disconnect(this._settings_connection_id);
+        this._switcherMenu.destroy();
     }
 
 });
@@ -102,5 +103,8 @@ function enable() {
 }
 
 function disable() {
-    proxySwitcher.destroy();
+    if(proxySwitcher != null) {
+        proxySwitcher.destroy();
+        proxySwitcher = null;
+    }
 }
