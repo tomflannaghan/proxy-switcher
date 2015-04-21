@@ -8,6 +8,7 @@ ZIP=$(UUID).zip
 build: 
 	rm -rf $(BUILD_LOC)
 	mkdir -p $(BUILD_LOC)
+	python make_locale.py
 	cp -r src/extension.js src/metadata.json locale $(BUILD_LOC)
 	cd $(BUILD_LOC); zip -r $(ZIP) *
 	mv $(BUILD_LOC)/$(ZIP) $(ZIP)
