@@ -23,7 +23,7 @@ const ProxySwitcher = new Lang.Class({
     _init: function() {
         // connect to the gsettings proxy schema
         this._settings = getSettings(PROXY_SCHEMA);
-        
+
         // possible states and their text representation.
         this._stateText = {'none': _("None"),
                            'manual': _("Manual"),
@@ -33,17 +33,20 @@ const ProxySwitcher = new Lang.Class({
         // make the menu
         this._switcherMenu = new PopupMenu.PopupSubMenuMenuItem(
             _("Proxy"), true);
-        this._switcherMenu.icon.icon_name = 
+        this._switcherMenu.icon.icon_name =
             "preferences-system-network-proxy-symbolic";
 
         // add items for each state.
+        this._items = {};
         for (var i = 0; i < this._stateList.length; i++) {
             let state = this._stateList[i];
-            let item = new PopupMenu.PopupMenuItem(this._stateText[state]);
+            let item = new PopupMenu.PopupMenuItem(
+                this._stateText[state]);
             this._switcherMenu.menu.addMenuItem(item);
             item.connect("activate", Lang.bind(this, function() {
                 this._settings.set_string(PROXY_MODE, state);
             }));
+            this._items[state] = item;
         }
 
         // Add a link to launch network settings.
@@ -65,8 +68,8 @@ const ProxySwitcher = new Lang.Class({
             this._mode = this._settings.get_string(PROXY_MODE);
             this.refresh();
         });
-        this._settings_connection_id = 
-            this._settings.connect('changed::' + PROXY_MODE, 
+        this._settings_connection_id =
+            this._settings.connect('changed::' + PROXY_MODE,
                                    load_settings_refresh);
 
         load_settings_refresh();
@@ -75,6 +78,11 @@ const ProxySwitcher = new Lang.Class({
     refresh: function() {
         // run every time settings have changed. Keeps the menu status in sync.
         this._switcherMenu.status.text = this._stateText[this._mode];
+        for (var state in this._items) {
+            this._items[state].setOrnament(
+                (state == this._mode) ? PopupMenu.Ornament.DOT
+                    : PopupMenu.Ornament.NONE);
+        }
     },
 
     destroy: function() {
@@ -89,7 +97,7 @@ let proxySwitcher;
 
 function init() {
     let extension = imports.misc.extensionUtils.getCurrentExtension();
-    
+
     // If the locale dir exists (it should always exist if installed
     // correctly) then set it up as the source for translations.
     let localeDir = extension.dir.get_child('locale');
