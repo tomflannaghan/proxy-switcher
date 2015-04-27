@@ -60,7 +60,7 @@ def make_all_po_files():
         print("writing {}".format(filename))
         with open(filename, 'w') as f:
             po = template
-            for key, value in translations.iteritems():
+            for key, value in translations.items():
                 po = po.replace('{{' + key + '}}', value)
             f.write(po)
 
