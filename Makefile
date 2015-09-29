@@ -1,8 +1,14 @@
-INSTALL_LOC=$(HOME)/.local/share/gnome-shell/extensions
 UUID=ProxySwitcher@flannaghan.com
 BUILD=build
 BUILD_LOC=$(BUILD)/$(UUID)
 ZIP=$(UUID).zip
+
+# if we are running as root, install system-wide.
+ifeq ($(shell whoami),root)
+INSTALL_LOC=/usr/share/gnome-shell/extensions
+else
+INSTALL_LOC=$(HOME)/.local/share/gnome-shell/extensions
+endif
 
 .PHONY: build
 build:
@@ -16,6 +22,9 @@ build:
 install:
 	rm -rf $(INSTALL_LOC)/$(UUID)
 	cp -r $(BUILD_LOC) $(INSTALL_LOC)/.
+
+uninstall:
+	rm -r $(INSTALL_LOC)/$(UUID)
 
 clean:
 	rm -rf po
