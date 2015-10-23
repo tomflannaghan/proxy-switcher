@@ -77,7 +77,16 @@ const ProxySwitcher = new Lang.Class({
 
     refresh: function() {
         // run every time settings have changed. Keeps the menu status in sync.
-        this._switcherMenu.status.text = this._stateText[this._mode];
+        if ('status' in this._switcherMenu) {
+            // Older versions of Gnome have a status label
+            this._switcherMenu.status.text = this._stateText[this._mode];
+        }
+        else {
+            // Gnome 3.18 doesn't have status so set the main label
+            this._switcherMenu.label.text =
+                _("Proxy") + " " + this._stateText[this._mode];
+        }
+
         for (var state in this._items) {
             this._items[state].setOrnament(
                 (state == this._mode) ? PopupMenu.Ornament.DOT
