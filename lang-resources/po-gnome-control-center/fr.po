@@ -2744,12 +2744,12 @@ msgstr "Fournisseur"
 #: ../panels/network/network-proxy.ui.h:1 ../panels/network/network.ui.h:2
 msgctxt "proxy method"
 msgid "None"
-msgstr "Aucune"
+msgstr "Aucun"
 
 #: ../panels/network/network-proxy.ui.h:2 ../panels/network/network.ui.h:3
 msgctxt "proxy method"
 msgid "Manual"
-msgstr "Manuelle"
+msgstr "Manuel"
 
 #: ../panels/network/network-proxy.ui.h:3 ../panels/network/network.ui.h:4
 msgctxt "proxy method"
