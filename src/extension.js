@@ -10,9 +10,9 @@ const PROXY_SCHEMA = "org.gnome.system.proxy"
 const PROXY_MODE = "mode"
 
 // possible proxy modes and their text representation.
-const modeText = {'none': _("None"),
-                  'manual': _("Manual"),
-                  'auto': _("Automatic")};
+const modeText = {'none': "None",
+                  'manual': "Manual",
+                  'auto': "Automatic"};
 const modeList = ['none', 'manual', 'auto'];
 
 // These will store the objects we create on enable.
@@ -25,7 +25,7 @@ class ModeMenuItem {
     // A class that wraps a menu item associated with a proxy mode.
     constructor(mode) {
         this.mode = mode;
-        this.item = new PopupMenu.PopupMenuItem(modeText[mode]);
+        this.item = new PopupMenu.PopupMenuItem(_(modeText[mode]));
         this.connectionId = this.item.connect("activate", function() {
             settings.set_string(PROXY_MODE, mode);
         });
@@ -84,7 +84,7 @@ function reflectSettings() {
     // Synchronises the menu indicator with the Gnome Settings,
     // allowing us to reflect changes made externally to the extension.
     const mode = settings.get_string(PROXY_MODE);
-    switcherMenu.label.text = _("Proxy") + " " + modeText[mode];
+    switcherMenu.label.text = _("Proxy") + " " + _(modeText[mode]);
 
     for (const item of items) {
         item.item.setOrnament(
