@@ -23,7 +23,7 @@ def get_control_center_translations(lang):
     proxy_methods = re.findall(pattern, fdata, flags=re.MULTILINE)
     proxy_methods = dict(proxy_methods)
     translations = {}
-    for k in ['None', 'Manual', 'Automatic']:
+    for k in ['Off', 'Manual', 'Automatic']:
         if proxy_methods.setdefault(k, "") != "":
             translations[k] = proxy_methods[k]
         else:

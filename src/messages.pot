@@ -17,11 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:16
+#: extension.js:13
+msgid "Off"
+msgstr ""
+
+#: extension.js:14
 msgid "Manual"
 msgstr ""
 
-#: extension.js:17
+#: extension.js:15
 msgid "Automatic"
 msgstr ""
 
