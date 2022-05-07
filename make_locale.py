@@ -19,7 +19,7 @@ def get_control_center_translations(lang):
     with open(infile, 'r') as f:
         fdata = f.read()
 
-    pattern = 'msgctxt "proxy method"\nmsgid "([^"]*)"\nmsgstr "([^"]*)"\n'
+    pattern = 'msgid "([^"]*)"\nmsgstr "([^"]*)"\n'
     proxy_methods = re.findall(pattern, fdata, flags=re.MULTILINE)
     proxy_methods = dict(proxy_methods)
     translations = {}
