@@ -10,7 +10,7 @@ const PROXY_SCHEMA = "org.gnome.system.proxy"
 const PROXY_MODE = "mode"
 
 // possible proxy modes and their text representation.
-const modeText = {'none': "None",
+const modeText = {'none': "Off",
                   'manual': "Manual",
                   'auto': "Automatic"};
 const modeList = ['none', 'manual', 'auto'];
