@@ -18,6 +18,10 @@ I recommend using the gnome extensions site but this is not always up to date. T
     make build
     make install
 
+## Older Gnome versions
+
+For Gnome versions prior to version 43, the `gnome42` branch is the latest compatible version of the extension.
+
 ## Translations
 
 I have added the translations I found in the [`gnome-control-center`](https://git.gnome.org/browse/gnome-control-center) project to the extension (these are the translations used in the "Network Settings" menu). I've also used the "Network Settings" desktop shortcut to translate that phrase.
