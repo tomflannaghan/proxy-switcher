@@ -1,7 +1,7 @@
 proxy-switcher
 ==============
 
-A Gnome Shell Extension to switch the proxy mode between the pre-defined modes "none", "manual" and "automatic". The extension adds a menu to the aggregate menu bar (i.e. the main menu bar) directly below the network section like this:
+A Gnome Shell Extension to switch the proxy mode between the pre-defined modes "none", "manual" and "automatic". The extension adds a button with dropdown to select the proxy mode to the Quick Menu like so:
 
 ![Screenshot](screenshot.png)
 
