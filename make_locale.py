@@ -20,22 +20,19 @@ def get_control_center_translations(lang):
         fdata = f.read()
 
     pattern = 'msgid "([^"]*)"\nmsgstr "([^"]*)"\n'
-    proxy_methods = re.findall(pattern, fdata, flags=re.MULTILINE)
-    proxy_methods = dict(proxy_methods)
+    raw_translations = re.findall(pattern, fdata, flags=re.MULTILINE)
+    raw_translations = dict(raw_translations)
     translations = {}
-    for k in ['Off', 'Manual', 'Automatic']:
-        if proxy_methods.setdefault(k, "") != "":
-            translations[k] = proxy_methods[k]
-        else:
+    for k in ['Off', 'Manual', 'Automatic', 'Proxy']:
+        translation = raw_translations.get(k)
+        if translation is None:
+            print("No translation for {} in {}".format(k, lang))
             translations[k] = k
-
-    pattern = '\nmsgid "Proxy"\nmsgstr "([^"]*)"\n'
-    mo = re.search(pattern, fdata, flags=re.MULTILINE)
-    if mo is None:
-        print("No translation for Proxy in `{}`".format(lang))
-        translations["Proxy"] = "Proxy"
-    else:
-        translations["Proxy"] = mo.group(1)
+        elif translation == "":
+            # Empty translation string => use key text.
+            translations[k] = k
+        else:
+            translations[k] = translation
     return translations
 
 def make_all_po_files():
