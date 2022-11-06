@@ -1,6 +1,8 @@
 const Main = imports.ui.main;
 const Gio = imports.gi.Gio;
 const PopupMenu = imports.ui.popupMenu;
+const QuickSettings = imports.ui.quickSettings;
+const QuickSettingsMenu = imports.ui.main.panel.statusArea.quickSettings;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Gettext = imports.gettext.domain(Me.metadata.uuid);
@@ -18,6 +20,7 @@ const modeList = ['none', 'manual', 'auto'];
 // These will store the objects we create on enable.
 let settings = null;
 let settingsConnectionId = null;
+let clickedConnectionId = null;
 let switcherMenu = null;
 let items = [];
 
@@ -48,8 +51,17 @@ function enable() {
     settings =  new Gio.Settings({ schema: PROXY_SCHEMA });    
 
     // make the menu
-    switcherMenu = new PopupMenu.PopupSubMenuMenuItem(_("Proxy"), true);
-    switcherMenu.icon.icon_name = "preferences-system-network-proxy-symbolic";
+    switcherMenu = new QuickSettings.QuickMenuToggle({
+        label: _("Proxy"),
+        iconName: "preferences-system-network-proxy-symbolic",
+    });
+    switcherMenu.menu.setHeader("preferences-system-network-proxy-symbolic", _("Proxy"));
+
+    clickedConnectionId = switcherMenu.connect(
+        'clicked', () => switcherMenu.menu.open(),
+    );
+
+    QuickSettingsMenu._addItems([switcherMenu]);
 
     // add menu item for each mode.
     items = [];
@@ -60,17 +72,10 @@ function enable() {
     }
 
     // Add a link to launch network settings.
+    switcherMenu.menu.addMenuItem(
+        new PopupMenu.PopupSeparatorMenuItem());
     switcherMenu.menu.addSettingsAction(
         _("Network Settings"), 'gnome-network-panel.desktop');
-
-    // Find the right place in the menu to insert our switcher.
-    // If the network menu is defined, insert after this item (the
-    // 4th position), else put it after the 3rd (which is the
-    // first seperator).
-    let network = Main.panel.statusArea.aggregateMenu._network;
-    let index = (network) ? 4 : 3;
-    Main.panel.statusArea.aggregateMenu.menu.addMenuItem(
-        switcherMenu, index);
 
     // Register callback for changes to the settings
     settingsConnectionId = settings.connect(
@@ -84,7 +89,7 @@ function reflectSettings() {
     // Synchronises the menu indicator with the Gnome Settings,
     // allowing us to reflect changes made externally to the extension.
     const mode = settings.get_string(PROXY_MODE);
-    switcherMenu.label.text = _("Proxy") + " " + _(modeText[mode]);
+    switcherMenu.checked = (mode != "none");
 
     for (const item of items) {
         item.item.setOrnament(
@@ -108,6 +113,8 @@ function disable() {
     items = [];
 
     if (switcherMenu) {
+        switcherMenu.disconnect(clickedConnectionId);
+        clickedConnectionId = null;
         switcherMenu.destroy();
         switcherMenu = null
     }
