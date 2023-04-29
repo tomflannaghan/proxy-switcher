@@ -52,7 +52,7 @@ function enable() {
 
     // make the menu
     switcherMenu = new QuickSettings.QuickMenuToggle({
-        label: _("Proxy"),
+        title: _("Proxy"),
         iconName: "preferences-system-network-proxy-symbolic",
     });
     switcherMenu.menu.setHeader("preferences-system-network-proxy-symbolic", _("Proxy"));
@@ -89,8 +89,14 @@ function reflectSettings() {
     // Synchronises the menu indicator with the Gnome Settings,
     // allowing us to reflect changes made externally to the extension.
     const mode = settings.get_string(PROXY_MODE);
-    switcherMenu.checked = (mode != "none");
-
+    if (mode == "none") {
+        switcherMenu.checked = false;
+        switcherMenu.subtitle = null;    
+    } else {
+        switcherMenu.checked = true;
+        switcherMenu.subtitle = _(modeText[mode]);    
+    }
+    
     for (const item of items) {
         item.item.setOrnament(
             (mode == item.mode) ? PopupMenu.Ornament.DOT
