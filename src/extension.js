@@ -39,12 +39,8 @@ const ProxyMenuToggle = GObject.registerClass(
             this.menu.addMenuItem(itemsSection);
     
             this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-            const settingsItem = this.menu.addSettingsAction(
+            this.menu.addSettingsAction(
                 _("Network Settings"), 'gnome-network-panel.desktop');
-    
-            // Ensure the settings are unavailable when the screen is locked
-            settingsItem.visible = Main.sessionMode.allowSettings;
-            this.menu._settingsActions[extensionObject.uuid] = settingsItem;
 
             // Clean-up. Not really sure if this is necessary, but want to be safe.
             this.connect('destroy', () => (this._modeToItem = null));
