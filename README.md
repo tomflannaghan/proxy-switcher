@@ -20,7 +20,10 @@ I recommend using the gnome extensions site but this is not always up to date. T
 
 ## Older Gnome versions
 
-For Gnome versions prior to version 43, the `gnome42` branch is the latest compatible version of the extension.
+Current master branch only supports version 45. There have been breaking changes to the Gnome Shell API. The best way to download the appropriate version for your Gnome is via the [extensions website](https://extensions.gnome.org/extension/771/proxy-switcher/), where
+you can select the shell version you would like.
+
+There are branches for some older versions of Gnome, e.g. `gnome44` branch for Gnome 44.
 
 ## Translations
 
