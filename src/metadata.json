@@ -3,5 +3,6 @@
     "name": "Proxy Switcher",
     "description": "Switches between the system proxy settings profiles defined in Network Settings.",
     "shell-version": ["45"],
-    "url": "https://github.com/tomflannaghan/proxy-switcher"
+    "url": "https://github.com/tomflannaghan/proxy-switcher",
+    "gettext-domain": "ProxySwitcher@flannaghan.com"
 }
