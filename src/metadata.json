@@ -4,5 +4,6 @@
     "description": "Switches between the system proxy settings profiles defined in Network Settings.",
     "shell-version": ["45"],
     "url": "https://github.com/tomflannaghan/proxy-switcher",
-    "gettext-domain": "ProxySwitcher@flannaghan.com"
+    "gettext-domain": "ProxySwitcher@flannaghan.com",
+    "settings-schema": "org.gnome.shell.extensions.com-flannaghan-ProxySwitcher"
 }

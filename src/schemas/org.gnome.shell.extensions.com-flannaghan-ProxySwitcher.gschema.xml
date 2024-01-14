@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.com-flannaghan-ProxySwitcher" path="/org/gnome/shell/extensions/ProxySwitcher@flannaghan.com/">
+    <key name="active-mode" type="s">
+      <default>'manual'</default>
+    </key>
+  </schema>
+</schemalist>

@@ -8,13 +8,17 @@ import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/ex
 
 
 const PROXY_SCHEMA = "org.gnome.system.proxy"
-const PROXY_MODE = "mode"
+const PROXY_MODE_KEY = "mode"
+
+// This is a key into our own settings. We use to hold the last active
+// mode we have seen, so we can toggle when the quick menu item is toggled.
+const ACTIVE_MODE_KEY = "active-mode"
 
 // possible proxy modes and their text representation.
-const modeText = {'none': "Off",
+const MODE_TEXT = {'none': "Off",
                   'manual': "Manual",
                   'auto': "Automatic"};
-const modeList = ['none', 'manual', 'auto'];
+const MODE_LIST = ['none', 'manual', 'auto'];
 
 
 const ProxyMenuToggle = GObject.registerClass(
@@ -32,15 +36,17 @@ const ProxyMenuToggle = GObject.registerClass(
             // Add a section of items to the menu
             let itemsSection = new PopupMenu.PopupMenuSection();
             this._modeToItem = {};
-            for (const mode of modeList) {
-                this._modeToItem[mode] = itemsSection.addAction(_(modeText[mode]),
-                    () => extensionObject.proxySettings.set_string(PROXY_MODE, mode));
+            for (const mode of MODE_LIST) {
+                this._modeToItem[mode] = itemsSection.addAction(_(MODE_TEXT[mode]),
+                    () => extensionObject.proxySettings.set_string(PROXY_MODE_KEY, mode));
             }
             this.menu.addMenuItem(itemsSection);
     
             this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
             this.menu.addSettingsAction(
                 _("Network Settings"), 'gnome-network-panel.desktop');
+
+            this.connect('clicked', () => this._toggleActive(extensionObject));
 
             // Clean-up. Not really sure if this is necessary, but want to be safe.
             this.connect('destroy', () => (this._modeToItem = null));
@@ -49,19 +55,32 @@ const ProxyMenuToggle = GObject.registerClass(
             this._reflectSettings(extensionObject);
         }
 
+        _toggleActive(extensionObject) {
+            // Toggles the state between off and the last selected mode.
+            if (this.checked) {
+                extensionObject.proxySettings.set_string(PROXY_MODE_KEY, 'none');
+            }
+            else {
+                let activeMode = extensionObject.settings.get_string(ACTIVE_MODE_KEY);
+                extensionObject.proxySettings.set_string(PROXY_MODE_KEY, activeMode);
+            }
+        }
+
         _reflectSettings(extensionObject) {
             // Synchronises the menu indicator with the Gnome Settings,
             // allowing us to reflect changes made externally to the extension.
-            const mode = extensionObject.proxySettings.get_string(PROXY_MODE);
+            const mode = extensionObject.proxySettings.get_string(PROXY_MODE_KEY);
             if (mode == "none") {
                 this.checked = false;
                 this.subtitle = null;    
             } else {
                 this.checked = true;
-                this.subtitle = _(modeText[mode]);    
+                this.subtitle = _(MODE_TEXT[mode]);
+                // Remember this as the active mode.
+                extensionObject.settings.set_string(ACTIVE_MODE_KEY, mode);
             }
             
-            for (const itemMode of modeList) {
+            for (const itemMode of MODE_LIST) {
                 this._modeToItem[itemMode].setOrnament(
                     (mode == itemMode) ? PopupMenu.Ornament.DOT
                         : PopupMenu.Ornament.NONE);
@@ -77,7 +96,8 @@ export default class ProxySwitcherExtension extends Extension {
         // connect to the gsettings proxy schema
         if (Gio.Settings.list_schemas().indexOf(PROXY_SCHEMA) == -1)
             throw _("Schema \"%s\" not found.").format(PROXY_SCHEMA);
-        this.proxySettings =  new Gio.Settings({ schema: PROXY_SCHEMA });    
+        this.proxySettings =  new Gio.Settings({ schema: PROXY_SCHEMA });
+        this.settings = this.getSettings();
 
         // make the menu
         let switcherMenu = new ProxyMenuToggle(this);
@@ -90,7 +110,7 @@ export default class ProxySwitcherExtension extends Extension {
 
         // Register callback for changes to the settings
         this.settingsConnectionId = this.proxySettings.connect(
-            'changed::' + PROXY_MODE, () => switcherMenu._reflectSettings(this),
+            'changed::' + PROXY_MODE_KEY, () => switcherMenu._reflectSettings(this),
         );
     }
 
@@ -108,5 +128,7 @@ export default class ProxySwitcherExtension extends Extension {
             this._indicator.destroy();
             this._indicator = null;
         }
+
+        this.settings = null;
     }
 }
