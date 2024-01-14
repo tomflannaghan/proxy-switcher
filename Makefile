@@ -31,3 +31,7 @@ clean:
 	rm -rf po
 	rm -rf locale
 	rm -rf $(BUILD)
+
+debug:
+	gnome-extensions enable ProxySwitcher@flannaghan.com
+	dbus-run-session -- gnome-shell --nested --wayland
