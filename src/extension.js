@@ -10,8 +10,9 @@ import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/ex
 const PROXY_SCHEMA = "org.gnome.system.proxy"
 const PROXY_MODE_KEY = "mode"
 
-// This is a key into our own settings. We use to hold the last active
-// mode we have seen, so we can toggle when the quick menu item is toggled.
+// This is a key into our own gsettings. We use to hold the last active
+// mode we have seen, so we can toggle between it and none when the 
+// quick menu item is toggled.
 const ACTIVE_MODE_KEY = "active-mode"
 
 // possible proxy modes and their text representation.
