@@ -2,7 +2,7 @@
     "uuid": "ProxySwitcher@flannaghan.com",
     "name": "Proxy Switcher",
     "description": "Switches between the system proxy settings profiles defined in Network Settings.",
-    "shell-version": ["45"],
+    "shell-version": ["45", "46"],
     "url": "https://github.com/tomflannaghan/proxy-switcher",
     "gettext-domain": "ProxySwitcher@flannaghan.com"
 }
