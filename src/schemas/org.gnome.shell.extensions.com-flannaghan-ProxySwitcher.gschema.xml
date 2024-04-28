@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.com-flannaghan-ProxySwitcher" path="/org/gnome/shell/extensions/ProxySwitcher@flannaghan.com/">
+    <key name="active-mode" type="s">
+      <default>'auto'</default>
+      <summary>Active Proxy Mode</summary>
+      <description>
+        This setting is used by the proxy switcher to store the most recent active state, to allow us to toggle
+        from 'none' to the previous active state. This setting is always either 'auto' or 'manual'. If the system
+        is already in the active state, this setting will mirror that state.
+
+        The default of 'auto' is chosen to be consistent with the default in the Settings menu when the proxy 
+        is disabled.
+      </description>
+    </key>
+  </schema>
+</schemalist>
